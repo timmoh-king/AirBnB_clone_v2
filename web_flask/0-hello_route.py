@@ -1,12 +1,12 @@
-#/usr/bin/python3
+#!/usr/bin/python3
 
 """Write a script that starts a Flask web application"""
 from flask import Flask
 
+
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.route("/")
-
 
 def hello_hbnb():
     """displays 'Hello HBNB!"""
