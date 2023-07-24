@@ -6,11 +6,12 @@ from sqlalchemy import Table
 from models.base_model import Base
 from models.base_model import BaseModel
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 
 
 association_table = Table(
-    "place_amenities",
+    "place_amenity",
     Base.metadata,
     Column(
         "place_id",
