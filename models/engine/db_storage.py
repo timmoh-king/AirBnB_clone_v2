@@ -52,7 +52,7 @@ class DBStorage:
         else:
             if type(cls) == str:
                 cls = eval(cls)
-            obj = self.session.query(cls)
+            obj = self.__session.query(cls)
         return {"{}.{}".format(type(o).__name__, o.id): o for o in obj}
 
     def new(self, obj):
