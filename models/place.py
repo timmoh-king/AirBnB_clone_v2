@@ -1,9 +1,12 @@
 #!/usr/bin/python3
 
 """ Place Module for HBNB project"""
+import models
 from os import getenv
 from sqlalchemy import Table
 from models.base_model import Base
+from models.amenity import Amenity
+from models.review import Review
 from models.base_model import BaseModel
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
