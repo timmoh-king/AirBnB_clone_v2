@@ -7,14 +7,14 @@ from models import storage
 from models.state import State
 from models import *
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 """app.url_map.strict_slashes = False"""
 
 
-@app.route("/state_list", strict_slashes=False)
+@app.route("/states_list", strict_slashes=False)
 def states_list():
     """display a HTML page: (inside the tag BODY)"""
-    states = sorted(list(storage.all(State).values()), key=lambda s: s.name)
+    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
     return render_template('7-states_list.html', states=states)
 
 

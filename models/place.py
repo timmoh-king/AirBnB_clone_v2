@@ -19,23 +19,25 @@ association_table = Table(
     Column(
         "place_id",
         String(60),
-        ForeignKey("places.id"),
+        ForeignKey("places.id", onupdate='CASCADE', ondelete='CASCADE'),        
         primary_key=True,
         nullable=False,
     ),
     Column(
         "amenity_id",
         String(60),
-        ForeignKey("amenities.id"),
+        ForeignKey("amenities.id", onupdate='CASCADE', ondelete='CASCADE'),
         primary_key=True,
         nullable=False,
     ),
+    mysql_charset='latin1'
 )
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
+    __table_args__ = ({'mysql_default_charset': 'latin1'})
 
     name = Column(String(128), nullable=False)
     description = Column(String(1024), nullable=True)
@@ -51,7 +53,7 @@ class Place(BaseModel, Base):
     amenities = relationship(
         "Amenity", secondary="place_amenity", backref="place_amenities", viewonly=False)
     reviews = relationship(
-        "Review", backref="place", cascade="delete")
+        "Review", backref="place")
 
     if getenv("HBNB_TYPE_STORAGE", None) != "db":
         @property
