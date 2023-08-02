@@ -39,33 +39,33 @@ class DBStorage:
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
-    # def all(self, cls=None):
-    #     """
-    #         all objects depending of the class name (argument cls)
-    #     """
-    #     if cls is None:
-    #         obj = self.__session.query(User).all()
-    #         obj.extend(self.__session.query(State).all())
-    #         obj.extend(self.__session.query(City).all())
-    #         obj.extend(self.__session.query(Amenity).all())
-    #         obj.extend(self.__session.query(Place).all())
-    #         obj.extend(self.__session.query(Review).all())
-    #     else:
-    #         if type(cls) == str:
-    #             cls = eval(cls)
-    #         obj = self.__session.query(cls)
-    #     return {"{}.{}".format(type(o).__name__, o.id): o for o in obj}
-
     def all(self, cls=None):
-        """query on the current database session"""
-        new_dict = {}
-        for clss in cls:
-            if cls is None or cls is cls['clss'] or cls is clss:
-                objs = self.__session.query(cls[clss]).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
-        return (new_dict)
+        """
+            all objects depending of the class name (argument cls)
+        """
+        if cls is None:
+            obj = self.__session.query(User).all()
+            obj.extend(self.__session.query(State).all())
+            obj.extend(self.__session.query(City).all())
+            obj.extend(self.__session.query(Amenity).all())
+            obj.extend(self.__session.query(Place).all())
+            obj.extend(self.__session.query(Review).all())
+        else:
+            if type(cls) == str:
+                cls = eval(cls)
+            obj = self.__session.query(cls)
+        return {"{}.{}".format(type(o).__name__, o.id): o for o in obj}
+
+    # def all(self, cls=None):
+    #     """query on the current database session"""
+    #     new_dict = {}
+    #     for clss in cls:
+    #         if cls is None or cls is cls[clss] or cls is clss:
+    #             objs = self.__session.query(cls[clss]).all()
+    #             for obj in objs:
+    #                 key = obj.__class__.__name__ + '.' + obj.id
+    #                 new_dict[key] = obj
+    #     return (new_dict)
 
     def new(self, obj):
         """add the object to the current database session"""
