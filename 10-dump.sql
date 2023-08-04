@@ -77,7 +77,7 @@ CREATE TABLE `places` (
   `number_bathrooms` int NOT NULL,
   `max_guest` int NOT NULL,
   `price_by_night` int NOT NULL,
-  `latitide` float DEFAULT NULL,
+  `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
   `city_id` varchar(60) NOT NULL,
   `user_id` varchar(60) NOT NULL,
@@ -204,6 +204,72 @@ INSERT INTO `cities` VALUES
 ('561a55f4-7d82-47d9-b54c-a76916479552','2017-03-25 19:44:42','2017-03-25 19:44:42','Joliet','421a55f4-7d82-47d9-b54c-a76916479552');
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `place_amenity`
+--
+
+DROP TABLE IF EXISTS `place_amenity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+
+CREATE TABLE `place_amenity` (
+  `place_id` varchar(60) NOT NULL,
+  `amenity_id` varchar(60) NOT NULL,
+  PRIMARY KEY (`place_id`, `amenity_id`),
+  CONSTRAINT `place_amenity_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `places` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `place_amenity_ibfk_2` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `place_amenity`
+--
+
+LOCK TABLES `place_amenity` WRITE;
+/*!40000 ALTER TABLE `place_amenity` DISABLE KEYS */;
+INSERT INTO `place_amenity` VALUES 
+('821a55f4-7d82-47d9-b54c-a76916479502','821a55f4-7d82-47d9-b54c-a76916479552'),
+('821a55f4-7d82-47d9-b54c-a76916479602','821a55f4-7d82-47d9-b54c-a76916479553');
+/*!40000 ALTER TABLE `place_amenity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `reviews`
+--
+
+DROP TABLE IF EXISTS `reviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+
+CREATE TABLE `reviews` (
+  `place_id` varchar(60) NOT NULL,
+  `user_id` varchar(60) NOT NULL,
+  `text` varchar(1024) NOT NULL,
+  `id` varchar(60) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`place_id`) REFERENCES `places` (`id`),
+  CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reviews`
+--
+
+LOCK TABLES `reviews` WRITE;
+/*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` VALUES 
+('821a55f4-7d82-47d9-b54c-a76916479502','821a55f4-7d82-47d9-b54c-a76916479582','nice spot','821a55f4-7d82-47d9-b54c-a76916469599','2017-03-25 19:44:42','2017-03-25 19:44:42'),
+('821a55f4-7d82-47d9-b54c-a76916479602','821a55f4-7d82-47d9-b54c-a76916479578','good customer service','821a55f4-7d82-47d9-b54c-a76916469888','2017-03-25 19:44:42','2017-03-25 19:44:42');
+/*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `states`
